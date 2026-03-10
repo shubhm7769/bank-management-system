@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SecureBank - Admin Portal Login">
+    <title>SecureBank - Admin Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏦</text></svg>">
+</head>
+
+<body>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Admin Login Page -->
+    <div class="auth-page" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);">
+        <div class="auth-container">
+            <div class="auth-card">
+                <!-- Logo & Header -->
+                <div class="auth-header">
+                    <div class="auth-logo" style="background: linear-gradient(135deg, #6a1b9a, #ab47bc);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                            <path d="m9 12 2 2 4-4" />
+                        </svg>
+                    </div>
+                    <h1>Admin Portal</h1>
+                    <p>Authorized personnel only</p>
+                </div>
+
+                <!-- Admin Login Form -->
+                <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="adminEmail">Admin Email</label>
+                        <div class="form-input-wrapper">
+                            <input type="email" id="adminEmail" class="form-input" placeholder="Enter admin email"
+                                required autocomplete="email">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="20" height="16" x="2" y="4" rx="2" />
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="adminPassword">Password</label>
+                        <div class="form-input-wrapper">
+                            <input type="password" id="adminPassword" class="form-input"
+                                placeholder="Enter admin password" required autocomplete="current-password">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                            <button type="button" class="toggle-password"
+                                onclick="togglePassword('adminPassword', this)">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn btn-primary" id="adminLoginBtn"
+                        style="background: linear-gradient(135deg, #6a1b9a, #9c27b0);">
+                        Access Admin Panel
+                    </button>
+                </form>
+
+                <!-- Footer Links -->
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+
+                <p class="auth-footer">
+                    <a href="index.html">← Back to User Login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Redirect if already logged in as admin
+        if (getToken() && getUser()) {
+            const user = getUser();
+            if (user.role === 'admin') {
+                window.location.href = 'admin-dashboard.html';
+            }
+        }
+    </script>
+</body>
+
+</html>

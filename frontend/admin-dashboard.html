@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SecureBank - Admin Dashboard">
+    <title>SecureBank - Admin Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏦</text></svg>">
+</head>
+
+<body>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Dashboard Layout -->
+    <div class="dashboard">
+        <!-- Sidebar Overlay (Mobile) -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+        <!-- ======== SIDEBAR ======== -->
+        <aside class="sidebar" id="sidebar" style="background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);">
+            <div class="sidebar-header">
+                <div class="sidebar-logo" style="background: linear-gradient(135deg, #6a1b9a, #ab47bc);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                        <path d="m9 12 2 2 4-4" />
+                    </svg>
+                </div>
+                <div class="sidebar-brand">
+                    <h2>SecureBank</h2>
+                    <span>Admin Panel</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section-title">Administration</div>
+                <div class="nav-item active" onclick="showAdminSection('dashboard')" id="nav-dashboard">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect width="7" height="9" x="3" y="3" rx="1" />
+                        <rect width="7" height="5" x="14" y="3" rx="1" />
+                        <rect width="7" height="9" x="14" y="12" rx="1" />
+                        <rect width="7" height="5" x="3" y="16" rx="1" />
+                    </svg>
+                    Dashboard
+                </div>
+                <div class="nav-item" onclick="showAdminSection('users')" id="nav-users">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg>
+                    All Users
+                </div>
+                <div class="nav-item" onclick="showAdminSection('transactions')" id="nav-transactions">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+                        <path d="M14 2v6h6" />
+                        <path d="M16 13H8" />
+                        <path d="M16 17H8" />
+                        <path d="M10 9H8" />
+                    </svg>
+                    All Transactions
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-user-avatar" style="background: linear-gradient(135deg, #6a1b9a, #ab47bc);">A
+                    </div>
+                    <div class="sidebar-user-info">
+                        <h4 id="adminName">Admin</h4>
+                        <p>System Administrator</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ======== MAIN CONTENT ======== -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="header-left">
+                    <button class="menu-toggle" onclick="toggleSidebar()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="4" x2="20" y1="12" y2="12" />
+                            <line x1="4" x2="20" y1="6" y2="6" />
+                            <line x1="4" x2="20" y1="18" y2="18" />
+                        </svg>
+                    </button>
+                    <div class="page-title">
+                        <h2 id="adminPageTitle">Admin Dashboard</h2>
+                        <p id="adminPageSubtitle">System overview and analytics</p>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <span class="header-badge" style="background: #ede7f6; color: #6a1b9a;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                        </svg>
+                        Admin
+                    </span>
+                    <button class="btn-logout" onclick="handleLogout()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                            <polyline points="16 17 21 12 16 7" />
+                            <line x1="21" x2="9" y1="12" y2="12" />
+                        </svg>
+                        Logout
+                    </button>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- ======== ADMIN DASHBOARD VIEW ======== -->
+                <div class="section-view active" id="section-dashboard">
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-card-header">
+                                <span class="stat-card-label">Total Users</span>
+                                <div class="stat-card-icon blue">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                        <circle cx="9" cy="7" r="4" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="stat-card-value" id="adminTotalUsers">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-header">
+                                <span class="stat-card-label">Active Users</span>
+                                <div class="stat-card-icon green">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                        <path d="m9 11 3 3L22 4" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="stat-card-value" id="adminActiveUsers">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-header">
+                                <span class="stat-card-label">Blocked Users</span>
+                                <div class="stat-card-icon red">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10" />
+                                        <path d="m4.9 4.9 14.2 14.2" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="stat-card-value" id="adminBlockedUsers">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-header">
+                                <span class="stat-card-label">Total Balance</span>
+                                <div class="stat-card-icon indigo">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 2v20M17 7H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="stat-card-value balance" id="adminTotalBalance">₹0.00</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-header">
+                                <span class="stat-card-label">Total Transactions</span>
+                                <div class="stat-card-icon purple">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+                                        <path d="M14 2v6h6" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="stat-card-value" id="adminTotalTransactions">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-card-header">
+                                <span class="stat-card-label">Today's Transactions</span>
+                                <div class="stat-card-icon teal">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="stat-card-value" id="adminTodayTransactions">0</div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Users -->
+                    <div class="content-card">
+                        <div class="content-card-header">
+                            <div>
+                                <h3>Recent Users</h3>
+                                <p>Latest registered users</p>
+                            </div>
+                            <button class="btn btn-secondary btn-sm" onclick="showAdminSection('users')">View
+                                All</button>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Account No.</th>
+                                    <th>Balance</th>
+                                    <th>Status</th>
+                                    <th>Joined</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminRecentUsersBody">
+                                <tr>
+                                    <td colspan="6" class="empty-state">
+                                        <p>Loading...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Recent Transactions -->
+                    <div class="content-card">
+                        <div class="content-card-header">
+                            <div>
+                                <h3>Recent Transactions</h3>
+                                <p>Latest banking activity across all users</p>
+                            </div>
+                            <button class="btn btn-secondary btn-sm" onclick="showAdminSection('transactions')">View
+                                All</button>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Balance After</th>
+                                    <th>Description</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminRecentTransactionsBody">
+                                <tr>
+                                    <td colspan="6" class="empty-state">
+                                        <p>Loading...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ======== ALL USERS VIEW ======== -->
+                <div class="section-view" id="section-users">
+                    <div class="content-card">
+                        <div class="content-card-header">
+                            <div>
+                                <h3>All Users</h3>
+                                <p>Manage all registered user accounts</p>
+                            </div>
+                            <div class="search-bar">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <path d="m21 21-4.3-4.3" />
+                                </svg>
+                                <input type="text" placeholder="Search by name, email, or account..."
+                                    id="adminUserSearch" oninput="debounceSearch(searchAdminUsers, this.value)">
+                            </div>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Account No.</th>
+                                    <th>Type</th>
+                                    <th>Balance</th>
+                                    <th>Status</th>
+                                    <th>Joined</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminAllUsersBody">
+                                <tr>
+                                    <td colspan="10" class="empty-state">
+                                        <p>Loading users...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="pagination" id="adminUsersPagination"></div>
+                    </div>
+                </div>
+
+                <!-- ======== ALL TRANSACTIONS VIEW ======== -->
+                <div class="section-view" id="section-transactions">
+                    <div class="content-card">
+                        <div class="content-card-header">
+                            <div>
+                                <h3>All Transactions</h3>
+                                <p>Complete transaction history across all users</p>
+                            </div>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>User</th>
+                                    <th>Account</th>
+                                    <th>Type</th>
+                                    <th>Amount</th>
+                                    <th>Balance After</th>
+                                    <th>Description</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminAllTransactionsBody">
+                                <tr>
+                                    <td colspan="8" class="empty-state">
+                                        <p>Loading transactions...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="pagination" id="adminTransactionsPagination"></div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // ---- Auth Guard ----
+        if (!getToken() || !getUser()) {
+            window.location.href = 'admin-login.html';
+        } else {
+            const user = getUser();
+            if (user.role !== 'admin') {
+                window.location.href = 'dashboard.html';
+            }
+            initAdminDashboard();
+        }
+    </script>
+</body>
+
+</html>

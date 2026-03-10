@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SecureBank - Create your online banking account today.">
+    <title>SecureBank - Register</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏦</text></svg>">
+</head>
+
+<body>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Register Page -->
+    <div class="auth-page">
+        <div class="auth-container">
+            <div class="auth-card">
+                <!-- Logo & Header -->
+                <div class="auth-header">
+                    <div class="auth-logo">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" style="fill:none;stroke:white;">
+                            <path d="M3 21h18" />
+                            <path d="M3 10h18" />
+                            <path d="M5 6l7-3 7 3" />
+                            <path d="M4 10v11" />
+                            <path d="M20 10v11" />
+                            <path d="M8 14v3" />
+                            <path d="M12 14v3" />
+                            <path d="M16 14v3" />
+                        </svg>
+                    </div>
+                    <h1>Create Account</h1>
+                    <p>Open your SecureBank account in minutes</p>
+                </div>
+
+                <!-- Registration Form -->
+                <form id="registerForm" onsubmit="handleRegister(event)">
+                    <!-- Full Name -->
+                    <div class="form-group">
+                        <label for="regName">Full Name</label>
+                        <div class="form-input-wrapper">
+                            <input type="text" id="regName" class="form-input" placeholder="Enter your full name"
+                                required minlength="2" maxlength="100">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="regEmail">Email Address</label>
+                        <div class="form-input-wrapper">
+                            <input type="email" id="regEmail" class="form-input" placeholder="Enter your email"
+                                required>
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="20" height="16" x="2" y="4" rx="2" />
+                                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="regPassword">Password</label>
+                        <div class="form-input-wrapper">
+                            <input type="password" id="regPassword" class="form-input"
+                                placeholder="Create a strong password" required minlength="6">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                            <button type="button" class="toggle-password" onclick="togglePassword('regPassword', this)">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </button>
+                        </div>
+                        <p class="form-helper">Minimum 4 characters</p>
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div class="form-group">
+                        <label for="regConfirmPassword">Confirm Password</label>
+                        <div class="form-input-wrapper">
+                            <input type="password" id="regConfirmPassword" class="form-input"
+                                placeholder="Confirm your password" required>
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
+                                <path d="m9 12 2 2 4-4" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="form-group">
+                        <label for="regPhone">Phone Number <span
+                                style="color:var(--text-secondary);font-weight:400;">(Optional)</span></label>
+                        <div class="form-input-wrapper">
+                            <input type="tel" id="regPhone" class="form-input" placeholder="Enter phone number"
+                                maxlength="15">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Address -->
+                    <div class="form-group">
+                        <label for="regAddress">Address <span
+                                style="color:var(--text-secondary);font-weight:400;">(Optional)</span></label>
+                        <div class="form-input-wrapper">
+                            <input type="text" id="regAddress" class="form-input" placeholder="Enter your address"
+                                maxlength="255">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Date of Birth -->
+                    <div class="form-group">
+                        <label for="regDob">Date of Birth</label>
+                        <div class="form-input-wrapper">
+                            <input type="date" id="regDob" class="form-input" style="padding-left: 40px;">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+                                <line x1="16" x2="16" y1="2" y2="6" />
+                                <line x1="8" x2="8" y1="2" y2="6" />
+                                <line x1="3" x2="21" y1="10" y2="10" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="form-group">
+                        <label for="regGender">Gender</label>
+                        <div class="form-input-wrapper">
+                            <select id="regGender" class="form-input" style="appearance:auto;cursor:pointer;">
+                                <option value="">-- Select Gender --</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Father's Name -->
+                    <div class="form-group">
+                        <label for="regFatherName">Father's Name</label>
+                        <div class="form-input-wrapper">
+                            <input type="text" id="regFatherName" class="form-input" placeholder="Enter father's name"
+                                minlength="2" maxlength="100">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Aadhar Number -->
+                    <div class="form-group">
+                        <label for="regAadhar">Aadhar Number <span
+                                style="color:var(--text-secondary);font-weight:400;">(Optional)</span></label>
+                        <div class="form-input-wrapper">
+                            <input type="text" id="regAadhar" class="form-input"
+                                placeholder="Enter 12-digit Aadhar number" maxlength="12" pattern="[0-9]{12}">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="20" height="14" x="2" y="5" rx="2" />
+                                <path d="M2 10h20" />
+                            </svg>
+                        </div>
+                        <p class="form-helper">12 digit Aadhar number (e.g., 123456789012)</p>
+                    </div>
+
+                    <!-- PAN Number -->
+                    <div class="form-group">
+                        <label for="regPan">PAN Number <span
+                                style="color:var(--text-secondary);font-weight:400;">(Optional)</span></label>
+                        <div class="form-input-wrapper">
+                            <input type="text" id="regPan" class="form-input"
+                                placeholder="Enter PAN number (e.g., ABCDE1234F)" maxlength="10"
+                                style="text-transform: uppercase;">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+                                <path d="M14 2v6h6" />
+                                <path d="M16 13H8" />
+                                <path d="M16 17H8" />
+                                <path d="M10 9H8" />
+                            </svg>
+                        </div>
+                        <p class="form-helper">Format: ABCDE1234F</p>
+                    </div>
+
+                    <!-- Nationality -->
+                    <div class="form-group">
+                        <label for="regNationality">Nationality <span
+                                style="color:var(--text-secondary);font-weight:400;">(Optional)</span></label>
+                        <div class="form-input-wrapper">
+                            <input type="text" id="regNationality" class="form-input" placeholder="e.g., Indian"
+                                maxlength="50" value="Indian">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                                <path d="M2 12h20" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Occupation -->
+                    <div class="form-group">
+                        <label for="regOccupation">Occupation <span
+                                style="color:var(--text-secondary);font-weight:400;">(Optional)</span></label>
+                        <div class="form-input-wrapper">
+                            <input type="text" id="regOccupation" class="form-input"
+                                placeholder="e.g., Student, Engineer, Business" maxlength="100">
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
+                                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Account Type -->
+                    <div class="form-group">
+                        <label for="regAccountType">Account Type</label>
+                        <div class="form-input-wrapper">
+                            <select id="regAccountType" class="form-input" style="appearance:auto;cursor:pointer;">
+                                <option value="savings">Savings Account</option>
+                                <option value="current">Current Account</option>
+                            </select>
+                            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect width="20" height="14" x="2" y="5" rx="2" />
+                                <path d="M2 10h20" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="btn btn-primary" id="registerBtn">
+                        Create Account
+                    </button>
+                </form>
+
+                <!-- Footer Links -->
+                <div class="auth-divider">
+                    <span>or</span>
+                </div>
+
+                <p class="auth-footer">
+                    Already have an account? <a href="index.html">Sign In</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Redirect if already logged in
+        if (getToken() && getUser()) {
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+
+</html>
